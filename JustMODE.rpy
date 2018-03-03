@@ -318,7 +318,14 @@ label mod_day1_arrival_slavya_1:
     window hide
     $ set_mode_adv()
     stop music
-    scene bg ext_houses_sunset with dissolve
+    jump supper1
+    
+    
+
+label supper1:
+    $ sunset_time()
+    $ persistent.sprite_time = 'sunset'
+    scene bg ext_houses_sunset with dissolve2
     scene bg ext_dining_hall_away_sunset with dissolve2
     scene bg ext_dining_hall_near_sunset with dissolve2
     scene bg int_dining_hall_sunset with dissolve2
@@ -328,30 +335,32 @@ label mod_day1_arrival_slavya_1:
     show us laugh pioneer close at center with dissolve
     us "Привет, Семёнчик. Что грустишь?"
     me "Да не грущу я, с чего ты взяла?"
-    show us surp1 pioneer close with dissolve2
+    show us surp1 pioneer close with dissolve
     us "Ой смотри!{w} Алиску вожатая ругает за форму."
     "Я обернулся."
-    hide us
+    hide us 
     show mt rage pioneer at right
     show dv guilty pioneer2 at left
     with dissolve
     "Ольга Дмитриевна разговаривала на повышенных тонах с медноголовой пионеркой, у которой рубашка была завязана узлом под грудью." 
-    hide dv with dissolve2
+    hide dv with dissolve
     show mt normal pioneer with dissolve
-    hide mt
+    hide mt with dissolve
     "В итоге Ольга заставила выйти ее из столовой и не пустила, пока та не привела в порядок свой внешний вид."
     "Я опустил взгляд в тарелку.{w}Не хватало котлеты."
-    show us laugh pioneer close with dissolve2
+    show us laugh pioneer close with dissolve
     menu:
         "Потребовать котлету":
-            jump day1_affter_supper_kotleta
+            jump day1_affter_supper1_kotleta
             $ kotleta = True
         "Ну и фиг с тобой.":
-            jump day1_affter_supper 
+            jump day1_affter1_supper 
             
     
     
-label day1_affter_supper_kotleta:
+label day1_affter_supper1_kotleta:
+    $ sunset_time()
+    $ persistent.sprite_time = 'sunset'
     play music music_list["heather"]
     "Так, я знаю, что это ты забрала котлету. Отдавай сейчас же!"
     show us surp2 pioneer close at center with dissolve
@@ -359,7 +368,7 @@ label day1_affter_supper_kotleta:
     "Я сделал крайне скептическое выражение лица."
     show us normal pioneer close at center with dissolve
     us "Ну ладно, ладно, только не плачь. Сейчас мы тебе новую котлету найдем!"
-    hide us
+    hide us with dissolve
     "Ульяна ушла. Я смотрел на свою порцию."
     "Никак не могу понять, зачем ей понадобилась моя котлета? {w} Не похоже, что здесь плохо кормят, или Ульяне этого мало? Могла бы взять добавки, да я сам мог взять новую."
     "Как только эта мысль промелькнула у меня в голове, тут же появилась Ульянка."
@@ -367,13 +376,51 @@ label day1_affter_supper_kotleta:
     us "Вот держи, приятного аппетита!"
     me "Спасибо."
     show us smile pioneer close at center with dissolve
-	stop music
+    stop music
     "Ульяна плюхнулась рядом со мной и уставилось на меня. Решив, что не только она может умять всю котлету за раз, я насадил на вилку котлету и марш-броском её отправил в рот."
     "После того, как половина котлеты оказалась в желудке, мое лицо уже хотело растянуться в победоносной ухмылке, как тут…"
     show us laugh pioneer with dspr 
     play music music_list["doomed_to_be_defeated"]
     "Сильное жжение охватило мою ротовую полость и распространялось через горло, по пищеводу, в желудок. Из глаз потекли слезы, рот стал нелепо затягивать воздух, через ноздри побежали ручейки соплей."
-    # Сделать бег Ульяны
+    show us grin pioneer with dissolve_fast:
+        linear 0.8 xpos 0.10
+    me "ВВОООООДЫЫЫЫЫ!!!"
+    "Это было единственно, что я мог произнести. Она что? В уксус ее что ли окунула?" 
+    "Ульяна, наблюдавшая за всем этим с самого начала, держала мой компот в руке и уже обхохатывалась у дальних столиков."
+    scene bg int_dining_hall_sunset with dissolve:
+        anchor (0.5, 0.5)
+        linear 0.2 xpos 0.4 ypos 0.6
+        linear 0.2 ypos 0.4 xpos 0.6
+        linear 0.2 ypos 0.5 xpos 0.5
+        xalign 0.4 yalign 0.6
+        repeat 50
+    "До раздаточного стола было не дотянуть, с ужасом я начал хватать напитки у всех пионеров на пути к Ульяне."
+    "Компот уже лился из носа, и я смачно поперхнулся, за это время жжение лишь немного ослабло. Несмотря на все несчастия, я рвался за Ульяной к выходу, попутно поглощая ближайшие компоты."
+    "На выходе из столовой стояла фиолетоволосая пионерка"
+    show un normal pioneer at center with dissolve
+    show un surprise pioneer close at center with dissolve_fast:
+        linear 0.8 ypos 0.4
+        linear 0.8 ypos 0
+        linear 0.8 ypos -1
+    "Несясь за рыжей хулиганкой, я на лету выхватил кефир и сбил девочку с ног."
+    stop ambience
+    scene bg ext_dining_hall_near_sunset with dissolve
+    
+    "Уже на крыльце кефир вливался в меня, еще через пару секунд и на мое лицо. Весь в смеси своих жидкостей, компота и кефира, под удивленные взгляды пионеров, я продолжил погоню за человеком, подписавшем себе смертный приговор."
+    play music music_list["revenga"]
+    scene bg ext_path_sunset with dissolve:
+        anchor (0.5, 0.5)
+        xalign 0.4 yalign 0.6
+        linear 0.5 xpos 0.4 
+        linear 0.5 ypos 0.45
+        linear 0.5 xpos 0.6 
+        linear 0.5 ypos 0.45 
+        repeat
+    
+    play ambience ambience_forest_evening
+    play sound_loop sfx_run_forest fadein 1
+    
+        
     
     
     
@@ -382,9 +429,13 @@ label day1_affter_supper_kotleta:
     
     
     
-label day1_affter_supper:
+    
+    
+label day1_affter_supper1:
+    $ sunset_time()
+    $ persistent.sprite_time = 'sunset'
     "csuaj"   
-    
+    "00h"
     
     
     
