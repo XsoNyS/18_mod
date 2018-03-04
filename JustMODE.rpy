@@ -7,6 +7,8 @@ init:
     $ slavya_answer = False
     $ lonely_research = False
     $ kotleta = False
+    $ dinner1_slavya = False
+    # Очки
     $ lp_sl = 0
     $ lp_un = 0
     $ lp_dv = 0
@@ -228,6 +230,7 @@ label mod_day1_arrival_slavya_1:
     menu:
         "К Славе":
              call dinner1_slavya
+             $ dinner1_slavya = True
         "К стесняше":
             call dinner1_lena
         "Одному":
@@ -313,14 +316,15 @@ label mod_day1_arrival_slavya_1:
     "Там ничего не могло выбить меня из колеи, доставить мне неудобства. Если ты дома, значит тебе больше нечего бояться, ничто не достанет тебя." 
     "Эх, как же хочется домой!"
     play sound sfx_dinner_horn_processed
-    "Прозвучал сигнал горна. Но хотелось идти в столовую, но не стоит нарушать местные порядки."
+    "Прозвучал сигнал горна. Не хотелось идти в столовую, но не стоит нарушать местные порядки."
     nvl clear
     window hide
     $ set_mode_adv()
+    call dv_meet 
     stop music
     jump supper1
     
-    
+   
 
 label supper1:
     $ sunset_time()
@@ -423,7 +427,33 @@ label day1_affter_supper1_kotleta:
         
     
     
-    
+label dv_meet: 
+    $ sunset_time()
+    $ persistent.sprite_time = 'sunset'
+    scene bg ext_houses_sunset with dissolve
+    "Развернувшись в сторону столовой, я наткнулся на какую-то пионерку."
+    show dv surprise pioneer2 with dissolve
+    show dv laugh pioneer2 with dspr
+    dvp "Так это ты тот идиот, о котором всё говорят?"
+    me "Эмм… Что?"
+    dvp "Ну точно – это ты!"
+    me "Эй, я не идиот!"
+    "Она только посмеялась."
+    me "Сама-то, кто такая?"
+    dvp "Ну ладно{w}, ещё придурком можешь быть…"
+    me "Я тебе вообще-то вопрос задал."
+    show dv angry pioneer2 with dspr
+    "Девчонка тут же стала серьёзной"
+    dvp "Я – Алиса, помощница вожатой, так что все дела тут идет через меня. {w} Если что-то хочешь {w} или какие-то проблемы, обращайся сначала ко мне!" 
+    if dinner1_slavya:
+        me "Ага, а Славя тогда кто?"
+        dv "Ну… Она тоже вожатой помогает…"
+        
+    else:
+        me "Ладно, учту."
+        "Я уже собрался уходить, но Алиса меня остановила."
+        return
+        
     
     
     
