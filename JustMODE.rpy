@@ -321,6 +321,7 @@ label mod_day1_arrival_slavya_1:
     window hide
     $ set_mode_adv()
     call dv_meet 
+    "Махнув на прощание рукой она ушла в противоположную от столовой сторону."
     stop music
     jump supper1
     
@@ -393,33 +394,41 @@ label day1_affter_supper1_kotleta:
     "Ульяна, наблюдавшая за всем этим с самого начала, держала мой компот в руке и уже обхохатывалась у дальних столиков."
     scene bg int_dining_hall_sunset with dissolve:
         anchor (0.5, 0.5)
-        linear 0.2 xpos 0.4 ypos 0.6
-        linear 0.2 ypos 0.4 xpos 0.6
-        linear 0.2 ypos 0.5 xpos 0.5
-        xalign 0.4 yalign 0.6
+        linear 0.2 xpos 0.48 
+        linear 0.2 ypos 0.48 xpos 0.5
+        linear 0.2 ypos 0.5 xpos 0.48
+        linear 0.2 xpos 0.5 ypos 0.5
+        xalign 0.5 yalign 0.5
         repeat 50
     "До раздаточного стола было не дотянуть, с ужасом я начал хватать напитки у всех пионеров на пути к Ульяне."
     "Компот уже лился из носа, и я смачно поперхнулся, за это время жжение лишь немного ослабло. Несмотря на все несчастия, я рвался за Ульяной к выходу, попутно поглощая ближайшие компоты."
     "На выходе из столовой стояла фиолетоволосая пионерка"
     show un normal pioneer at center with dissolve
     show un surprise pioneer close at center with dissolve_fast:
-        linear 0.8 ypos 0.4
+        linear 0.8 ypos 0.48
         linear 0.8 ypos 0
         linear 0.8 ypos -1
     "Несясь за рыжей хулиганкой, я на лету выхватил кефир и сбил девочку с ног."
     stop ambience
     scene bg ext_dining_hall_near_sunset with dissolve
-    
     "Уже на крыльце кефир вливался в меня, еще через пару секунд и на мое лицо. Весь в смеси своих жидкостей, компота и кефира, под удивленные взгляды пионеров, я продолжил погоню за человеком, подписавшем себе смертный приговор."
     play music music_list["revenga"]
+    play ambience ambience_forest_evening  fadein 3
+    play sound_loop sfx_run_forest  fadein 1
     scene bg ext_path_sunset with dissolve:
-        anchor (0.5, 0.5)
-        xalign 0.4 yalign 0.6
-        linear 0.5 xpos 0.4 
-        linear 0.5 ypos 0.45
-        linear 0.5 xpos 0.6 
-        linear 0.5 ypos 0.45 
-        repeat
+        pos (0,0) 
+        linear 0.1 pos (-5,-5) 
+        linear 0.1 pos (5,5) 
+        pos (0,0) 
+        linear 0.1 pos (0,-5) 
+        linear 0.1 pos (0,5) 
+        repeat  
+    "Ульяна бежала в сторону леса. Рыжий затылок был все ближе и ближе, казалось, в этот момент моей скорости позавидует сам Усэйн Болт, но у судьбы были свои планы." 
+    "Носок задел корень, не успев выпрямить руки, я познакомил свой подбородок с землей."
+    scene bg ext_path_sunset 
+    with hpunch
+    with vpunch
+    
     
     play ambience ambience_forest_evening
     play sound_loop sfx_run_forest fadein 1
@@ -448,12 +457,33 @@ label dv_meet:
     if dinner1_slavya:
         me "Ага, а Славя тогда кто?"
         dv "Ну… Она тоже вожатой помогает…"
-        
+        me "И зачем вожатой две помощницы?"
+        dv "Кхм… {w} Работы у неё много, не справляется одна."
+        me "Ваше красноречие меньше пятидесяти – провал. {w} Идите и качайтесь."
+        dv "Тебе бы тоже не помешало."
+        me "Это ты о чём?"
+        dv "О том, что ты даже полмешка с сахаром не поднимешь!"
+        "Тут во мне взыграла гордость."
+        me "Ну ты по себе людей не равняй…"
+        dv "А приходи сегодня вечером на пляж, там и посмотрим, кто из нас более спортивный!"
+        me "Замётано!"
+        dv "Буду ждать, если не придешь…"
+        me "Приду!"
+        "Произнес я, ударяя себе в грудь"
+        dv "Ладно, ладно. Буду ждать!"
+        return
     else:
         me "Ладно, учту."
         "Я уже собрался уходить, но Алиса меня остановила."
+        dv "У меня для тебя есть персональное поручение – приходи после ужина на пляж, подробности узнаешь там."
+        "Убрав руку, она ещё раз осмотрела меня и добавила"
+        dv "И не вздумай не прийти, вожатой это явно не понравится"
+        me "Ладно, я подойду."
+        dv "Вот и хорошо."
         return
-        
+     
+    
+    
     
     
     
